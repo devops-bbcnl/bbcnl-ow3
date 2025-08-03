@@ -34,7 +34,18 @@ export default function SubscribersPage() {
   if (loading) return <div>Loading...</div>
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: '/admin/login' });
+    try {
+      const data = await signOut({ 
+        redirect: false,
+        callbackUrl: '/admin/login' 
+      });
+      // Force a full page reload to clear any cached auth state
+      window.location.href = data.url || '/admin/login';
+    } catch (error) {
+      console.error('Error during sign out:', error);
+      // If there's an error, still redirect to login
+      window.location.href = '/admin/login';
+    }
   };
 
   return (
