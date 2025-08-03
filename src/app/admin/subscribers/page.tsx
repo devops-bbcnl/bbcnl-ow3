@@ -48,6 +48,47 @@ export default function SubscribersPage() {
     }
   };
 
+  // Export selected subscribers to CSV
+  const exportToCSV = () => {
+    if (selectedSubscribers.length === 0) {
+      alert('Please select at least one subscriber to export');
+      return;
+    }
+
+    const selectedData = subscribers.filter(sub => selectedSubscribers.includes(sub.id));
+    
+    // Create CSV header
+    const headers = ['Email', 'Status', 'Joined Date'];
+    
+    // Create CSV rows
+    const rows = selectedData.map(sub => ({
+      Email: `"${sub.email}"`,
+      Status: sub.active ? 'Active' : 'Inactive',
+      'Joined Date': new Date(sub.createdAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })
+    }));
+
+    // Convert to CSV string
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => Object.values(row).join(','))
+    ].join('\n');
+
+    // Create download link
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `subscribers_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Check if all visible rows are selected
   const allSelected = filteredSubscribers.length > 0 && 
                      filteredSubscribers.every(sub => selectedSubscribers.includes(sub.id));
@@ -91,15 +132,31 @@ export default function SubscribersPage() {
         <h1 className="text-2xl font-bold">Subscribers</h1>
         <div className="flex items-center space-x-4">
           {selectedSubscribers.length > 0 && (
-            <button
-              onClick={() => {
-                // Implement delete selected functionality
-                alert(`Delete ${selectedSubscribers.length} selected subscribers`);
-              }}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-            >
-              Delete Selected ({selectedSubscribers.length})
-            </button>
+            <>
+              <button
+                onClick={exportToCSV}
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors flex items-center space-x-2"
+                title="Export selected to CSV"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Export ({selectedSubscribers.length})</span>
+              </button>
+              <button
+                onClick={() => {
+                  // Implement delete selected functionality
+                  alert(`Delete ${selectedSubscribers.length} selected subscribers`);
+                }}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center space-x-2"
+                title="Delete selected"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                <span>Delete ({selectedSubscribers.length})</span>
+              </button>
+            </>
           )}
           <button
             onClick={handleLogout}

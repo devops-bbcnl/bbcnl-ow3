@@ -97,7 +97,7 @@ export default function AboutPage() {
               <h2 className="text-5xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-gray-300">
                 <p>
-                  Founded in 2010, Bubble Barrel began as a small team of passionate developers with a shared vision to transform ideas into digital reality. 
+                  Founded in 2022, Bubble Barrel began as a solo developer with a vision to transform ideas into digital reality. 
                   What started as a humble startup has grown into a leading digital solutions provider, serving clients worldwide.
                 </p>
                 <p>
