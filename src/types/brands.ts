@@ -4,6 +4,12 @@ import UGETlogo from '@/components/assets/images/UGET-logo.png';
 import UsekwuLogo from '@/components/assets/images/usekwu-logo.png';
 import LRLLogo from '@/components/assets/images/LRL-Logo.png';
 
+export interface Screenshot {
+  id: number;
+  title: string;
+  url: string;
+}
+
 export interface Brand {
   id: number;
   name: string;
@@ -24,7 +30,7 @@ export const brands: Brand[] = [
     tagline: 'Your One-Stop Shopping Destination',
     description: 'GoBuyMe is a leading e-commerce platform that brings together thousands of sellers and millions of products in one convenient location. With fast delivery, secure payments, and 24/7 customer support, we make online shopping simple and enjoyable.',
     logo: GBMlogo,
-    website: 'https://gobuy.me',
+    website: 'https://gobuyme.shop',
     features: [
       { icon: '🛍️', text: 'Wide product selection' },
       { icon: '🚚', text: 'Fast & reliable delivery' },
@@ -63,7 +69,7 @@ export const brands: Brand[] = [
     tagline: 'Smart Freight Solutions',
     description: 'LoadRunner Logistics provides end-to-end logistics and supply chain solutions. We connect shippers with carriers through our advanced platform, optimizing routes and reducing costs for businesses of all sizes.',
     logo: LRLLogo,
-    website: 'https://loadrunnerlogistics.com',
+    website: 'https://loadrunnerlogistics.api',
     features: [
       { icon: '🚛', text: 'Efficient routing' },
       { icon: '📦', text: 'Cargo tracking' },

@@ -3,11 +3,19 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { FiArrowLeft, FiExternalLink } from 'react-icons/fi';
 import { Brand, brands } from '@/types/brands';
+import ScreenshotGalleryWrapper from '@/components/ScreenshotGalleryWrapper';
 
 // Function to fetch a single brand by ID
 const getBrandById = (id: string): Brand | undefined => {
   return brands.find((brand) => brand.id.toString() === id);
 };
+
+// This function runs at build time to generate static paths
+export async function generateStaticParams() {
+  return brands.map((brand) => ({
+    id: brand.id.toString(),
+  }));
+}
 
 export default function BrandDetailPage({ params }: { params: { id: string } }) {
   const brand = getBrandById(params.id);
@@ -15,6 +23,14 @@ export default function BrandDetailPage({ params }: { params: { id: string } }) 
   if (!brand) {
     notFound();
   }
+  
+  // Mock screenshots for now - replace with actual screenshot data
+  const screenshots = [
+    { id: 1, title: 'Dashboard', url: '' },
+    { id: 2, title: 'Features', url: '' },
+    { id: 3, title: 'Analytics', url: '' },
+    { id: 4, title: 'Settings', url: '' },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
@@ -78,13 +94,30 @@ export default function BrandDetailPage({ params }: { params: { id: string } }) 
           </div>
         </div>
       </div>
+
+      {/* Screenshots Section */}
+      <div className="py-16 bg-gray-800">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#ffd700] mb-4">App Screenshots</h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">Explore our intuitive interface and powerful features through these screenshots</p>
+          </div>
+          
+          <ScreenshotGalleryWrapper screenshots={screenshots} />
+          
+          <div className="mt-12 text-center">
+            <a 
+              href={brand.website} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-[#ffd700] hover:text-yellow-400 font-medium"
+            >
+              Download the app to experience all features
+              <FiExternalLink className="ml-2" />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
-
-// Generate static paths for all brands at build time
-export async function generateStaticParams() {
-  return brands.map((brand) => ({
-    id: brand.id.toString(),
-  }));
 }
