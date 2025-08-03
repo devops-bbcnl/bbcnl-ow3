@@ -1,13 +1,63 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaCheck, FaExclamationCircle } from 'react-icons/fa';
 import Logo from '../components/assets/images/logo.png';
 
 const currentYear = new Date().getFullYear();
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      setStatus('error');
+      setMessage('Please enter your email address');
+      return;
+    }
+
+    setStatus('loading');
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
+
+      setStatus('success');
+      setMessage('Thank you for subscribing! Please check your email.');
+      setEmail('');
+      
+      // Reset status after 5 seconds
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 5000);
+    } catch (error) {
+      setStatus('error');
+      setMessage(
+        error instanceof Error 
+          ? error.message 
+          : 'Failed to subscribe. Please try again later.'
+      );
+    }
+  };
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
@@ -116,21 +166,48 @@ export default function Footer() {
             <p className="text-gray-400 text-sm mb-4">
               Subscribe to our newsletter for the latest updates and news.
             </p>
-            <form className="space-y-3">
-              <div>
+            <form onSubmit={handleSubscribe} className="space-y-3">
+              <div className="relative">
                 <input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
-                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-[#ffd700] focus:border-transparent text-sm"
+                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-[#ffd700] focus:border-transparent text-sm pr-10"
+                  disabled={status === 'loading' || status === 'success'}
                   required
                 />
+                {status === 'success' && (
+                  <FaCheck className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500" />
+                )}
+                {status === 'error' && (
+                  <FaExclamationCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500" />
+                )}
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[#ffd700] to-[#ffd700] text-black font-medium py-2 px-4 rounded-lg hover:opacity-90 transition-opacity text-sm"
+                disabled={status === 'loading' || status === 'success'}
+                className="w-full bg-gradient-to-r from-[#ffd700] to-[#ffd700] text-black font-medium py-2 px-4 rounded-lg hover:opacity-90 transition-opacity text-sm disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                Subscribe
+                {status === 'loading' ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Subscribing...
+                  </>
+                ) : status === 'success' ? (
+                  'Subscribed!'
+                ) : (
+                  'Subscribe'
+                )}
               </button>
+              {message && (
+                <p className={`text-sm mt-2 ${status === 'error' ? 'text-red-400' : 'text-green-400'}`}>
+                  {message}
+                </p>
+              )}
             </form>
           </div>
         </div>
