@@ -3,68 +3,9 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiArrowRight, FiExternalLink, FiShoppingBag, FiTruck, FiPackage, FiGlobe } from 'react-icons/fi';
+import { FiArrowRight, FiExternalLink } from 'react-icons/fi';
 import Footer from '../../components/Footer';
-import Logo1 from '../../components/assets/images/GBMlogo.png'
-import Logo2 from '../../components/assets/images/UGET-logo.png'
-import Logo3 from '../../components/assets/images/usekwu-logo.png'
-import Logo4 from '../../components/assets/images/LRL-Logo.png'
-
-// Brand data
-const brands = [
-  {
-    id: 1,
-    name: 'GoBuyMe',
-    tagline: 'Your One-Stop Shopping Destination',
-    description: 'GoBuyMe is a leading e-commerce platform that brings together thousands of sellers and millions of products in one convenient location. With fast delivery, secure payments, and 24/7 customer support, we make online shopping simple and enjoyable.',
-    logo: Logo1,
-    website: 'https://gobuy.me',
-    features: [
-      { icon: <FiShoppingBag className="w-5 h-5" />, text: 'Wide product selection' },
-      { icon: <FiTruck className="w-5 h-5" />, text: 'Fast & reliable delivery' },
-      { icon: <FiPackage className="w-5 h-5" />, text: 'Easy returns' }
-    ]
-  },
-  {
-    id: 2,
-    name: 'U-Get Delivery',
-    tagline: 'Same-Day Delivery Solutions',
-    description: 'U-Get Delivery provides lightning-fast same-day delivery services for businesses and individuals. Our network of professional couriers ensures your packages reach their destination safely and on time, every time.',
-    logo: Logo2,
-    website: 'https://uget.delivery',
-    features: [
-      { icon: <FiTruck className="w-5 h-5" />, text: 'Same-day delivery' },
-      { icon: <FiPackage className="w-5 h-5" />, text: 'Real-time tracking' },
-      { icon: <FiGlobe className="w-5 h-5" />, text: 'Nationwide coverage' }
-    ]
-  },
-  {
-    id: 3,
-    name: 'Usekwu',
-    tagline: 'Empowering African Languages',
-    description: 'Usekwu is dedicated to preserving and promoting African languages through innovative technology. Our platform offers language learning tools, translation services, and cultural resources to connect people through language.',
-    logo: Logo3,
-    website: 'https://usekwu.com',
-    features: [
-      { icon: <FiGlobe className="w-5 h-5" />, text: 'Multiple African languages' },
-      { icon: <FiPackage className="w-5 h-5" />, text: 'Interactive learning' },
-      { icon: <FiShoppingBag className="w-5 h-5" />, text: 'Cultural resources' }
-    ]
-  },
-  {
-    id: 4,
-    name: 'LoadRunner Logistics',
-    tagline: 'Smart Freight Solutions',
-    description: 'LoadRunner Logistics provides end-to-end logistics and supply chain solutions. We connect shippers with carriers through our advanced platform, optimizing routes and reducing costs for businesses of all sizes.',
-    logo: Logo4,
-    website: 'https://loadrunnerlogistics.com',
-    features: [
-      { icon: <FiTruck className="w-5 h-5" />, text: 'Efficient routing' },
-      { icon: <FiPackage className="w-5 h-5" />, text: 'Cargo tracking' },
-      { icon: <FiGlobe className="w-5 h-5" />, text: 'Global network' }
-    ]
-  }
-];
+import { brands } from '@/types/brands';
 
 export default function BrandsPage() {
   return (

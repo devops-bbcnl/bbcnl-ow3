@@ -82,11 +82,11 @@ export default function Footer() {
   const contactInfo = [
     { 
       icon: <FaMapMarkerAlt className="text-[#ffd700] w-5 h-5 flex-shrink-0" />, 
-      text: '123 Business Avenue, Tech City, TC 10001, Netherlands' 
+      text: '7th Avenue Federal Housing Estate, Egbeada, Owerri, Imo State, Nigeria' 
     },
     { 
       icon: <FaPhoneAlt className="text-[#ffd700] w-5 h-5 flex-shrink-0" />, 
-      text: '+1 (234) 803-7674195' 
+      text: '+234 8037674195' 
     },
     { 
       icon: <FaEnvelope className="text-[#ffd700] w-5 h-5 flex-shrink-0" />, 

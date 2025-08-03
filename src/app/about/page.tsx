@@ -5,30 +5,34 @@ import Image from 'next/image';
 import { FiAward, FiTarget, FiHeart, FiGlobe } from 'react-icons/fi';
 import Footer from '../../components/Footer';
 import office from '../../components/assets/images/office.jpg';
+import officeguy from '../../components/assets/images/officeguy.jpg';
+import officelady from '../../components/assets/images/officelady.jpg';
+import ugo from '../../components/assets/images/ugo.jpg';
+import officeguy2 from '../../components/assets/images/officeguy2.jpg';
 
 const teamMembers = [
   {
     name: 'John Doe',
     role: 'CEO & Founder',
-    image: '/images/team/john-doe.jpg',
+    image: officeguy,
     description: 'Visionary leader with 15+ years in tech entrepreneurship'
   },
   {
     name: 'Jane Smith',
     role: 'CTO',
-    image: '/images/team/jane-smith.jpg',
+    image: officelady,
     description: 'Technology expert specializing in scalable solutions'
   },
   {
     name: 'Mike Johnson',
     role: 'Head of Design',
-    image: '/images/team/mike-johnson.jpg',
+    image: ugo,
     description: 'Creative director with an eye for stunning user experiences'
   },
   {
     name: 'Sarah Williams',
     role: 'Marketing Director',
-    image: '/images/team/sarah-williams.jpg',
+    image: officeguy2,
     description: 'Digital marketing strategist and brand builder'
   }
 ];
