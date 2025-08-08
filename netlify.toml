@@ -3,7 +3,17 @@
   publish = ".next"
 
 [build.environment]
+  NODE_VERSION = "18.20.2"
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[context.production.environment]
+  NODE_VERSION = "18.20.2"
+
+[context.deploy-preview.environment]
+  NODE_VERSION = "18.20.2"
+
+[context.branch-deploy.environment]
+  NODE_VERSION = "18.20.2"
