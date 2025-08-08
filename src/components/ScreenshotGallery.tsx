@@ -43,33 +43,40 @@ export default function ScreenshotGallery({ screenshots }: ScreenshotGalleryProp
       }));
 
   return (
-    <div className="py-8">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
+    <div className="py-4 w-full">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 px-4 max-w-7xl mx-auto">
         {displayScreenshots.map((screenshot, index) => (
           <div 
             key={screenshot.id}
-            className="group relative overflow-hidden rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 cursor-pointer"
+            className="group relative overflow-hidden rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer"
             onClick={() => openLightbox(index)}
           >
-            <div className="aspect-w-9 aspect-h-16 w-full bg-gray-700 rounded-xl flex items-center justify-center">
+            <div className="relative w-full pt-[100%] bg-gray-800 rounded-lg">
               {screenshot.url ? (
-                <Image 
-                  src={screenshot.url} 
-                  alt={screenshot.title}
-                  fill
-                  className="object-cover"
-                />
+                <div className="absolute inset-0">
+                  <Image 
+                    src={screenshot.url} 
+                    alt={screenshot.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                    priority={index < 4} // Only load first 4 images eagerly
+                  />
+                </div>
               ) : (
-                <div className="text-gray-400 text-sm text-center p-4">
-                  <div className="text-4xl mb-2">📱</div>
-                  <p>{screenshot.title}</p>
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                  <div className="text-4xl mb-2 text-gray-400">📱</div>
+                  <p className="text-gray-400 text-sm">{screenshot.title}</p>
                 </div>
               )}
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <span className="bg-[#ffd700] text-black px-2 py-1 rounded-full font-medium text-xs">
+                  View
+                </span>
+              </div>
             </div>
-            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-              <span className="bg-[#ffd700] text-black px-4 py-2 rounded-full font-medium">
-                View
-              </span>
+            <div className="p-1.5 bg-gray-900">
+              <p className="text-xs text-gray-300 text-center truncate">{screenshot.title}</p>
             </div>
           </div>
         ))}

@@ -24,12 +24,35 @@ export default function BrandDetailPage({ params }: { params: { id: string } }) 
     notFound();
   }
   
-  // Mock screenshots for now - replace with actual screenshot data
-  const screenshots = [
+  // Screenshots configuration for each brand
+  const brandScreenshots: Record<string, Array<{id: number; title: string; url: string}>> = {
+    '1': [ // GoBuyMe
+      { id: 1, title: 'Dashboard', url: '/screenshots/gobuyme/dashboard.png' },
+      { id: 2, title: 'Product Catalog', url: '/screenshots/gobuyme/catalog.png' },
+      { id: 3, title: 'Shopping Cart', url: '/screenshots/gobuyme/restaurant.png' },
+      { id: 4, title: 'Checkout', url: '/screenshots/gobuyme/splash.png' },
+    ],
+    '2': [ // U-Get Delivery
+      { id: 1, title: 'Track Delivery', url: '/screenshots/uget/track.png' },
+      { id: 2, title: 'Delivery Map', url: '/screenshots/uget/map.png' },
+      { id: 3, title: 'History', url: '/screenshots/uget/history.png' },
+    ],
+    '3': [ // Usekwu
+      { id: 1, title: 'Analytics Dashboard', url: '/screenshots/usekwu/analytics.png' },
+      { id: 2, title: 'Dashboard', url: '/screenshots/usekwu/dashboard.png' },
+    ],
+    '4': [ // LoadRunner Logistics
+      { id: 1, title: 'Shipment Tracking', url: '/screenshots/loadrunner/tracking.jpg' },
+      { id: 2, title: 'Fleet Management', url: '/screenshots/loadrunner/fleet.jpg' },
+      { id: 3, title: 'Analytics', url: '/screenshots/loadrunner/analytics.jpg' },
+    ]
+  };
+
+  // Get screenshots for the current brand or use an empty array if none found
+  const screenshots = brandScreenshots[params.id] || [
+    // Fallback placeholder if no screenshots are configured for this brand
     { id: 1, title: 'Dashboard', url: '' },
     { id: 2, title: 'Features', url: '' },
-    { id: 3, title: 'Analytics', url: '' },
-    { id: 4, title: 'Settings', url: '' },
   ];
 
   return (
