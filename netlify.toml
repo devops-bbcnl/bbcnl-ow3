@@ -13,10 +13,7 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
   [plugins.inputs]
-    # Enable Next.js image optimization
-    enableImageOptimization = true
-    # Enable server-side rendering for all pages
-    enableStatic = true
+    # Enable static exports for Next.js
     enableStaticExports = false
 
 # Redirect all API routes to Netlify Functions
