@@ -52,8 +52,26 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions) {
   }
 }
 
+// Helper function to safely construct URLs with validation
+function getBaseUrl() {
+  // Default to localhost in development
+  const defaultUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://bubblebarrel.nl' 
+    : 'http://localhost:3000';
+  
+  // Ensure the URL has a protocol and is valid
+  try {
+    const url = new URL(process.env.NEXTAUTH_URL || defaultUrl);
+    return `${url.protocol}//${url.host}`;
+  } catch (error) {
+    console.warn('Invalid NEXTAUTH_URL, falling back to default URL');
+    return defaultUrl;
+  }
+}
+
 export async function sendSubscriptionConfirmation(email: string) {
-  const unsubscribeUrl = `${process.env.NEXTAUTH_URL}/unsubscribe?email=${encodeURIComponent(email)}`;
+  const baseUrl = getBaseUrl();
+  const unsubscribeUrl = new URL(`/unsubscribe?email=${encodeURIComponent(email)}`, baseUrl).toString();
   const subject = 'Thanks for Subscribing to Bubble Barrel!';
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1f2937;">
@@ -73,7 +91,7 @@ export async function sendSubscriptionConfirmation(email: string) {
       <p>We're thrilled to have you in our bubble tea community! If you have any questions or need assistance, feel free to reply to this email.</p>
       
       <div style="margin: 30px 0; text-align: center;">
-        <a href="${process.env.NEXTAUTH_URL}" style="display: inline-block; padding: 10px 20px; background-color: #3b82f6; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Visit Our Store</a>
+        <a href="${baseUrl}" style="display: inline-block; padding: 10px 20px; background-color: #3b82f6; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Visit Our Store</a>
       </div>
       
       <p>Cheers,<br><strong>The Bubble Barrel Team</strong></p>
@@ -88,8 +106,8 @@ export async function sendSubscriptionConfirmation(email: string) {
         <p style="margin: 5px 0 0 0; font-size: 11px;">
           © ${new Date().getFullYear()} Bubble Barrel. All rights reserved.
           <br>
-          <a href="${process.env.NEXTAUTH_URL}/privacy" style="color: #3b82f6; text-decoration: none;">Privacy Policy</a> | 
-          <a href="${process.env.NEXTAUTH_URL}/terms" style="color: #3b82f6; text-decoration: none; margin-left: 5px;">Terms of Service</a>
+          <a href="${baseUrl}/privacy" style="color: #3b82f6; text-decoration: none;">Privacy Policy</a> | 
+          <a href="${baseUrl}/terms" style="color: #3b82f6; text-decoration: none; margin-left: 5px;">Terms of Service</a>
         </p>
       </div>
     </div>
