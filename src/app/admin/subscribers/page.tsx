@@ -1,7 +1,6 @@
 'use client'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 
 interface Subscriber {
   id: string;
@@ -18,7 +17,6 @@ export default function SubscribersPage() {
   const [selectedSubscribers, setSelectedSubscribers] = useState<string[]>([])
   const [filter, setFilter] = useState<FilterType>('all')
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
 
   // Filter subscribers based on active/inactive status
   useEffect(() => {

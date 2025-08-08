@@ -7,6 +7,14 @@ import { FiArrowRight, FiExternalLink } from 'react-icons/fi';
 import Footer from '../../components/Footer';
 import { brands } from '@/types/brands';
 
+// Map of brand IDs to their URL slugs
+const brandSlugs: { [key: number]: string } = {
+  1: 'gobuyme',
+  2: 'uget-delivery',
+  3: 'usekwu',
+  4: 'loadrunner-logistics'
+};
+
 export default function BrandsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
@@ -38,56 +46,59 @@ export default function BrandsPage() {
                 key={brand.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 shadow-2xl"
+                className="bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 shadow-2xl hover:border-blue-500/50 transition-all duration-300 cursor-pointer"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
-                  {/* Brand Logo and Basic Info */}
-                  <div className="lg:col-span-1 flex flex-col items-center lg:items-start">
-                    <div className="relative w-40 h-40 mb-6">
-                      <Image
-                        src={brand.logo}
-                        alt={brand.name}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    <h2 className="text-2xl font-bold mb-2">{brand.name}</h2>
-                    <p className="text-gold-400 mb-4 font-medium">{brand.tagline}</p>
-                    <a
-                      href={brand.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-gold-400 hover:text-gold-300 transition-colors"
-                    >
-                      Visit Website <FiExternalLink className="ml-1" />
-                    </a>
-                  </div>
-
-                  {/* Brand Description */}
-                  <div className="lg:col-span-2">
-                    <p className="text-gray-300 mb-6">{brand.description}</p>
-                    
-                    {/* Features */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                      {brand.features.map((feature, i) => (
-                        <div key={i} className="flex items-start space-x-2 p-3 bg-gray-800/50 rounded-lg">
-                          <span className="text-gold-400 mt-0.5">{feature.icon}</span>
-                          <span className="text-gray-300">{feature.text}</span>
-                        </div>
-                      ))}
+                <Link href={`/brands/${brandSlugs[brand.id]}`} className="block h-full">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
+                    {/* Brand Logo and Basic Info */}
+                    <div className="lg:col-span-1 flex flex-col items-center lg:items-start">
+                      <div className="relative w-40 h-40 mb-6">
+                        <Image
+                          src={brand.logo}
+                          alt={brand.name}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <h2 className="text-2xl font-bold mb-2">{brand.name}</h2>
+                      <p className="text-gold-400 mb-4 font-medium">{brand.tagline}</p>
+                      <a
+                        href={brand.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-gold-400 hover:text-gold-300 transition-colors"
+                      >
+                        Visit Website <FiExternalLink className="ml-1" />
+                      </a>
                     </div>
 
-                    <Link
-                      href={`/brands/${brand.id}`}
-                      className="inline-flex items-center text-gold-400 hover:text-gold-300 font-medium transition-colors group"
-                    >
-                      Learn more about {brand.name}
-                      <FiArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
-                    </Link>
+                    {/* Brand Description */}
+                    <div className="lg:col-span-2">
+                      <p className="text-gray-300 mb-6">{brand.description}</p>
+                      
+                      {/* Features */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                        {brand.features.map((feature, i) => (
+                          <div key={i} className="flex items-start space-x-2 p-3 bg-gray-800/50 rounded-lg">
+                            <span className="text-gold-400 mt-0.5">{feature.icon}</span>
+                            <span className="text-gray-300">{feature.text}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <Link
+                        href={`/brands/${brandSlugs[brand.id]}`}
+                        className="inline-flex items-center text-gold-400 hover:text-gold-300 font-medium transition-colors group"
+                      >
+                        Learn more about {brand.name}
+                        <FiArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </div>

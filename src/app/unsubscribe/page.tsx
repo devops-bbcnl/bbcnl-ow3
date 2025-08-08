@@ -1,14 +1,20 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function UnsubscribePage() {
+// Wrapper component to handle search params with Suspense
+function UnsubscribeForm() {
   const searchParams = useSearchParams();
+  const email = searchParams.get('email');
+  
+  return <UnsubscribePageInner email={email} />;
+}
+
+function UnsubscribePageInner({ email }: { email: string | null }) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
-  const email = searchParams.get('email');
 
   const handleUnsubscribe = useCallback(async () => {
     if (!email) return;
@@ -53,7 +59,7 @@ export default function UnsubscribePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">
@@ -107,5 +113,17 @@ export default function UnsubscribePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function UnsubscribePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-pulse text-gray-600">Loading...</div>
+      </div>
+    }>
+      <UnsubscribeForm />
+    </Suspense>
   );
 }
