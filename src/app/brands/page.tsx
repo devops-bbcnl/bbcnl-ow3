@@ -19,18 +19,18 @@ export default function BrandsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden px-16">
-        <div className="container mx-auto px-6 relative z-10">
+      <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-[#ffd700]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-gold-400">
               Our Brands
             </h1>
-            <p className="text-xl text-gray-300">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300">
               Discover the innovative companies that make up the BBCNL family. Each brand is built with excellence and customer satisfaction at its core.
             </p>
           </motion.div>
@@ -38,24 +38,24 @@ export default function BrandsPage() {
       </section>
 
       {/* Brands Grid */}
-      <section className="pb-20 px-16">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 gap-12">
+      <section className="pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-12">
             {brands.map((brand, index) => (
               <motion.div
                 key={brand.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 shadow-2xl hover:border-blue-500/50 transition-all duration-300 cursor-pointer"
+                className="bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 shadow-xl sm:shadow-2xl hover:border-blue-500/50 transition-all duration-300 cursor-pointer"
               >
                 <Link href={`/brands/${brandSlugs[brand.id]}`} className="block h-full">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 p-4 sm:p-6 md:p-8">
                     {/* Brand Logo and Basic Info */}
-                    <div className="lg:col-span-1 flex flex-col items-center lg:items-start">
-                      <div className="relative w-40 h-40 mb-6">
+                    <div className="md:col-span-1 flex flex-col items-center text-center md:text-left">
+                      <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mb-4 sm:mb-6">
                         <Image
                           src={brand.logo}
                           alt={brand.name}
@@ -76,14 +76,14 @@ export default function BrandsPage() {
                     </div>
 
                     {/* Brand Description */}
-                    <div className="lg:col-span-2">
-                      <p className="text-gray-300 mb-6">{brand.description}</p>
+                    <div className="md:col-span-2">
+                      <p className="text-gray-300 text-sm sm:text-base mb-4 sm:mb-6">{brand.description}</p>
                       
                       {/* Features */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                         {brand.features.map((feature, i) => (
-                          <div key={i} className="flex items-start space-x-2 p-3 bg-gray-800/50 rounded-lg">
-                            <span className="text-gold-400 mt-0.5">{feature.icon}</span>
+                          <div key={i} className="flex items-start space-x-2 p-2 sm:p-3 bg-gray-800/50 rounded-lg text-sm sm:text-base">
+                            <span className="text-gold-400 mt-0.5 flex-shrink-0">{feature.icon}</span>
                             <span className="text-gray-300">{feature.text}</span>
                           </div>
                         ))}
@@ -106,22 +106,22 @@ export default function BrandsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-black via-gray-900 to-black">
-        <div className="container mx-auto px-6 text-center">
+      <section className="py-12 sm:py-16 bg-gradient-to-r from-black via-gray-900 to-black">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
             className="max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl font-bold mb-6">Ready to experience our brands?</h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Ready to experience our brands?</h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8">
               Join thousands of satisfied customers who trust our brands for quality and innovation.
             </p>
             <Link
               href="/contact"
-              className="inline-block bg-gradient-to-r from-gold-500 to-gold-600 text-[#ffd700] font-semibold py-3 px-8 rounded-lg hover:opacity-90 transition-all"
+              className="inline-block bg-gradient-to-r from-gold-500 to-gold-600 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-lg hover:opacity-90 transition-all text-sm sm:text-base"
             >
               Contact Us
             </Link>
