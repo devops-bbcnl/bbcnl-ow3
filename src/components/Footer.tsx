@@ -91,13 +91,13 @@ const handleSubscribe = async (e: React.FormEvent) => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-black via-gray-900 to-black text-white border-t border-[#ffd700]/20 px-16">
+    <footer className="bg-gradient-to-r from-black via-gray-900 to-black text-white border-t border-[#ffd700]/20 px-1 sm:px-16">
       <div className="container mx-auto px-6 py-6 md:py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo and Description */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center">
-              <div className="relative h-12 w-48">
+            <Link href="/" className="flex items-center justify-start">
+              <div className="relative h-12 w-12">
                 <Image
                   src={Logo}
                   alt="Bubble Barrel Logo"
