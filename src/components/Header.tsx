@@ -4,7 +4,7 @@ import Logo from '../components/assets/images/logo.png'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-black via-gray-900 to-black shadow-lg border-b border-gold-500/20 px-2 sm:px-16 py-4">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-black via-gray-900 to-black shadow-lg border-b border-gold-500/20 px-2 sm:px-16 py-0 sm:py-4">
       <div className="container py-3 flex items-center justify-between w-full">
         {/* Logo */}
         <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
