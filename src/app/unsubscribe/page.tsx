@@ -1,129 +1,91 @@
 'use client';
 
-import { useState, useEffect, useCallback, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { useState } from 'react';
+import { unsubscribeUser } from '@/utils/firebase-subscriber';
 
-// Wrapper component to handle search params with Suspense
-function UnsubscribeForm() {
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email');
-  
-  return <UnsubscribePageInner email={email} />;
-}
-
-function UnsubscribePageInner({ email }: { email: string | null }) {
+export default function UnsubscribePage() {
+  const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
-  const handleUnsubscribe = useCallback(async () => {
-    if (!email) return;
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setStatus('loading');
+  setMessage('');
 
-    setStatus('loading');
-    setMessage('Processing your request...');
-
-    try {
-      const response = await fetch(`/api/unsubscribe?email=${encodeURIComponent(email)}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setStatus('success');
-        setMessage(data.message || 'You have been successfully unsubscribed.');
-      } else {
-        throw new Error(data.error || 'Failed to unsubscribe');
-      }
-    } catch (error) {
-      console.error('Unsubscribe error:', error);
-      setStatus('error');
-      setMessage(
-        error instanceof Error 
-          ? error.message 
-          : 'An error occurred while processing your request.'
-      );
+  try {
+    const result = await unsubscribeUser(email);
+    setStatus(result.success ? 'success' : 'error');
+    setMessage(result.message);
+    
+    if (result.success) {
+      setEmail('');
     }
-  }, [email]);
-
-  useEffect(() => {
-    if (email) {
-      handleUnsubscribe();
-    }
-  }, [email, handleUnsubscribe]);
-
-
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      handleUnsubscribe();
-    }
-  };
+  } catch {
+    setStatus('error');
+    setMessage('An unexpected error occurred. Please try again later.');
+  }
+};
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-8">
+    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md mx-auto">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">
-            {status === 'success' ? 'Unsubscribed Successfully' : 'Unsubscribe'}
+          <h1 className="text-3xl font-extrabold text-gray-900">
+            Unsubscribe from Our Newsletter
           </h1>
-          
-          {status === 'idle' && !email && (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              >
-                Unsubscribe
-              </button>
-            </form>
-          )}
+          <p className="mt-2 text-sm text-gray-600">
+            We&apos;re sorry to see you go. Enter your email to unsubscribe.
+          </p>
+        </div>
 
-          {(status === 'loading' || status === 'success' || status === 'error') && (
-            <div className={`p-4 rounded-md ${status === 'success' ? 'bg-green-50' : status === 'error' ? 'bg-red-50' : 'bg-blue-50'}`}>
-              <p className={`text-sm ${status === 'success' ? 'text-green-800' : status === 'error' ? 'text-red-800' : 'text-blue-800'}`}>
-                {message}
-              </p>
-              {status === 'success' && (
-                <p className="mt-2 text-sm text-gray-600">
-                  <p>We&apos;re sorry to see you go. You can always resubscribe anytime.</p>
-                </p>
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <div>
+            <label htmlFor="email" className="sr-only">
+              Email address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#ffd700] focus:border-[#ffd700] focus:z-10 sm:text-sm"
+              placeholder="Enter your email address"
+              disabled={status === 'loading'}
+            />
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              disabled={status === 'loading' || status === 'success'}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-[#ffd700] hover:bg-[#e6c200] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffd700] disabled:opacity-50"
+            >
+              {status === 'loading' ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing...
+                </>
+              ) : (
+                'Unsubscribe'
               )}
+            </button>
+          </div>
+
+          {message && (
+            <div className={`mt-4 text-sm text-center ${
+              status === 'error' ? 'text-red-600' : 'text-green-600'
+            }`}>
+              {message}
             </div>
           )}
-
-          <div className="mt-6">
-            <Link
-              href="/"
-              className="text-sm font-medium text-blue-600 hover:text-blue-500"
-            >
-              &larr; Back to home
-            </Link>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
-  );
-}
-
-export default function UnsubscribePage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-pulse text-gray-600">Loading...</div>
-      </div>
-    }>
-      <UnsubscribeForm />
-    </Suspense>
   );
 }

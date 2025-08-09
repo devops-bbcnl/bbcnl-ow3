@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaCheck, FaExclamationCircle } from 'react-icons/fa';
 import Logo from '../components/assets/images/logo.png';
+import { addSubscriber } from "../utils/subscribe";
 
 const currentYear = new Date().getFullYear();
 
@@ -13,51 +14,43 @@ export default function Footer() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
-  const handleSubscribe = async (e: React.FormEvent) => {
+const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email) {
-      setStatus('error');
-      setMessage('Please enter your email address');
+      setStatus("error");
+      setMessage("Please enter your email address");
       return;
     }
 
-    setStatus('loading');
-    setMessage('');
+    setStatus("loading");
+    setMessage("");
 
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      const success = await addSubscriber(email);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong');
+      if (!success) {
+        throw new Error("Something went wrong. Please try again.");
       }
 
-      setStatus('success');
-      setMessage('Thank you for subscribing! Please check your email.');
-      setEmail('');
-      
-      // Reset status after 5 seconds
+      setStatus("success");
+      setMessage("Thank you for subscribing!");
+      setEmail("");
+
       setTimeout(() => {
-        setStatus('idle');
-        setMessage('');
+        setStatus("idle");
+        setMessage("");
       }, 5000);
     } catch (error) {
-      setStatus('error');
+      setStatus("error");
       setMessage(
-        error instanceof Error 
-          ? error.message 
-          : 'Failed to subscribe. Please try again later.'
+        error instanceof Error
+          ? error.message
+          : "Failed to subscribe. Please try again later."
       );
     }
   };
+
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
@@ -69,7 +62,6 @@ export default function Footer() {
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
     { name: 'Cookie Policy', href: '/cookies' },
-    { name: 'Admin Login', href: '/admin/login' },
   ];
 
   const socialLinks = [
@@ -175,22 +167,22 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
                   className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-[#ffd700] focus:border-transparent text-sm pr-10"
-                  disabled={status === 'loading' || status === 'success'}
+                  disabled={status === "loading" || status === "success"}
                   required
                 />
-                {status === 'success' && (
+                {status === "success" && (
                   <FaCheck className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500" />
                 )}
-                {status === 'error' && (
+                {status === "error" && (
                   <FaExclamationCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500" />
                 )}
               </div>
               <button
                 type="submit"
-                disabled={status === 'loading' || status === 'success'}
+                disabled={status === "loading" || status === "success"}
                 className="w-full bg-gradient-to-r from-[#ffd700] to-[#ffd700] text-black font-medium py-2 px-4 rounded-lg hover:opacity-90 transition-opacity text-sm disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                {status === 'loading' ? (
+                {status === "loading" ? (
                   <>
                     <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -198,16 +190,16 @@ export default function Footer() {
                     </svg>
                     Subscribing...
                   </>
-                ) : status === 'success' ? (
-                  'Subscribed!'
+                ) : status === "success" ? (
+                  "Subscribed!"
                 ) : (
-                  'Subscribe'
+                  "Subscribe"
                 )}
               </button>
               {message && (
-                <p className={`text-sm mt-2 ${status === 'error' ? 'text-red-400' : 'text-green-400'}`}>
+                <div className={`text-sm mt-2 ${status === "error" ? "text-red-500" : "text-green-500"}`}>
                   {message}
-                </p>
+                </div>
               )}
             </form>
           </div>
@@ -234,3 +226,4 @@ export default function Footer() {
     </footer>
   );
 }
+

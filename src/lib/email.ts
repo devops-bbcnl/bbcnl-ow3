@@ -63,7 +63,7 @@ function getBaseUrl() {
   try {
     const url = new URL(process.env.NEXTAUTH_URL || defaultUrl);
     return `${url.protocol}//${url.host}`;
-  } catch (error) {
+  } catch {
     console.warn('Invalid NEXTAUTH_URL, falling back to default URL');
     return defaultUrl;
   }
