@@ -4,8 +4,8 @@ import Logo from '../components/assets/images/logo.png'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-black via-gray-900 to-black shadow-lg border-b border-gold-500/20 px-16 py-4">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-black via-gray-900 to-black shadow-lg border-b border-gold-500/20 px-2 sm:px-16 py-4">
+      <div className="container py-3 flex items-center justify-between w-full">
         {/* Logo */}
         <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
           <Image 
@@ -18,8 +18,8 @@ export default function Header() {
           <span className="text-2xl font-bold text-[#ffd700]">Bubble Barrel</span>
         </Link>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+                {/* Navigation */}
+        <nav className="hidden lg:flex items-center space-x-8">
           <Link href="/" className="text-gray-300 hover:text-gold-400 transition-colors font-medium">
             Home
           </Link>
@@ -38,8 +38,7 @@ export default function Header() {
         </nav>
 
         {/* CTA Button */}
-        <div className="flex items-center
-        ">
+        <div className="hidden lg:flex items-center">
           <Link 
             href="/contact" 
             className="bg-[#D4AF37] hover:bg-[#FFD700] text-black font-semibold px-5 py-2 rounded-md transition-colors hover:shadow-glow"
