@@ -125,7 +125,7 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 bg-black px-4 sm:px-8 lg:px-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Trusted by Leading Brands</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Our Brands</h2>
             <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-gold-500 to-transparent mx-auto mb-6 sm:mb-8"></div>
           </div>
           <LogoCarousel />

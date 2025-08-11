@@ -39,9 +39,9 @@ const teamMembers = [
 ];
 
 const stats = [
-  { value: '50+', label: 'Projects Completed', icon: <FiAward className="w-8 h-8" /> },
+  { value: '4+', label: 'Projects Completed and counting', icon: <FiAward className="w-8 h-8" /> },
   { value: '100%', label: 'Client Satisfaction', icon: <FiHeart className="w-8 h-8" /> },
-  { value: '15+', label: 'Years Experience', icon: <FiTarget className="w-8 h-8" /> },
+  { value: '3+', label: 'Years Experience', icon: <FiTarget className="w-8 h-8" /> },
   { value: 'Global', label: 'Reach', icon: <FiGlobe className="w-8 h-8" /> }
 ];
 
@@ -111,10 +111,10 @@ export default function AboutPage() {
               <div className="space-y-3 sm:space-y-4 text-gray-300 text-sm sm:text-base">
                 <p>
                   Founded in 2022, Bubble Barrel began as a solo developer with a vision to transform ideas into digital reality. 
-                  What started as a humble startup has grown into a leading digital solutions provider, serving clients worldwide.
+                  What started as a humble startup is now aspiring to be a leading digital solutions provider, serving clients worldwide.
                 </p>
                 <p>
-                  Over the years, we&apos;ve had the privilege of working with startups, established businesses, and Fortune 500 companies, helping them navigate 
+                  Over the years, we&apos;ve had the privilege of gaining experience working with startups, established businesses, and Fortune 500 companies, helping them navigate 
                   the digital landscape and achieve their business objectives through innovative technology solutions.
                 </p>
                 <p>

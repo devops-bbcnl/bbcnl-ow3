@@ -1,7 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { FiMail, FiPhone, FiMapPin, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi';
+import {
+	FiMail,
+	FiPhone,
+	FiMapPin,
+	FiSend,
+	FiCheck,
+	FiAlertCircle,
+} from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import Footer from '../../components/Footer';
 
@@ -14,7 +21,7 @@ export default function ContactPage() {
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<string | null>(null);
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,40 +34,44 @@ export default function ContactPage() {
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
+		e.preventDefault();
+		setError(null);
+		setIsSubmitting(true);
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+		try {
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
 
-      const data = await response.json();
+			const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong');
-      }
+			if (!response.ok) {
+				throw new Error(data.error || 'Something went wrong');
+			}
 
-      setIsSubmitted(true);
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-    } catch (err) {
-      console.error('Error submitting form:', err);
-      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+			setIsSubmitted(true);
+			// Reset form after successful submission
+			setFormData({
+				name: '',
+				email: '',
+				subject: '',
+				message: '',
+			});
+		} catch (err) {
+			console.error('Error submitting form:', err);
+			setError(
+				err instanceof Error
+					? err.message
+					: 'Failed to send message. Please try again.'
+			);
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
@@ -110,7 +121,10 @@ export default function ContactPage() {
 											<span>{error}</span>
 										</div>
 									)}
-									<form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+									<form
+										onSubmit={handleSubmit}
+										className="space-y-4 sm:space-y-6"
+									>
 										<div>
 											<label
 												htmlFor="name"
@@ -190,7 +204,7 @@ export default function ContactPage() {
 										<button
 											type="submit"
 											disabled={isSubmitting}
-											className={`w-full py-2 sm:py-3 px-4 sm:px-6 bg-gradient-to-r from-gold-500 to-gold-600 text-black font-semibold rounded-lg hover:opacity-90 transition-all text-sm sm:text-base ${
+											className={`w-full py-2 sm:py-3 px-4 sm:px-6 bg-gradient-to-r from-gold-500 to-gold-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all text-sm sm:text-base ${
 												isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
 											}`}
 										>
@@ -250,7 +264,9 @@ export default function ContactPage() {
 										<FiMail className="w-5 h-5 sm:w-6 sm:h-6" />
 									</div>
 									<div className="ml-3 sm:ml-4">
-										<h3 className="text-base sm:text-lg font-semibold">Email Us</h3>
+										<h3 className="text-base sm:text-lg font-semibold">
+											Email Us
+										</h3>
 										<a
 											href="mailto:contact@bubblebarrel.dev"
 											className="text-sm sm:text-base text-gray-400 hover:text-gold-400 transition-colors break-all"
@@ -265,7 +281,9 @@ export default function ContactPage() {
 										<FiPhone className="w-5 h-5 sm:w-6 sm:h-6" />
 									</div>
 									<div className="ml-3 sm:ml-4">
-										<h3 className="text-base sm:text-lg font-semibold">Call Us</h3>
+										<h3 className="text-base sm:text-lg font-semibold">
+											Call Us
+										</h3>
 										<a
 											href="tel:+2348037674195"
 											className="text-sm sm:text-base text-gray-400 hover:text-gold-400 transition-colors"
@@ -280,7 +298,9 @@ export default function ContactPage() {
 										<FiMapPin className="w-5 h-5 sm:w-6 sm:h-6" />
 									</div>
 									<div className="ml-3 sm:ml-4">
-										<h3 className="text-base sm:text-lg font-semibold">Visit Us</h3>
+										<h3 className="text-base sm:text-lg font-semibold">
+											Visit Us
+										</h3>
 										<address className="text-sm sm:text-base text-gray-400 not-italic">
 											7th Avenue Federal Housing Estate
 											<br />
@@ -293,7 +313,9 @@ export default function ContactPage() {
 							</div>
 
 							<div className="pt-4 sm:pt-6 border-t border-gray-800">
-								<h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Business Hours</h3>
+								<h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
+									Business Hours
+								</h3>
 								<ul className="space-y-1.5 sm:space-y-2 text-sm sm:text-base text-gray-400">
 									<li className="flex justify-between">
 										<span>Monday - Friday</span>
