@@ -6,37 +6,7 @@ import Image from 'next/image';
 import { FiAward, FiTarget, FiHeart, FiGlobe } from 'react-icons/fi';
 import Footer from '../../components/Footer';
 import office from '../../components/assets/images/office.jpg';
-import officeguy from '../../components/assets/images/officeguy.jpg';
-import officelady from '../../components/assets/images/officelady.jpg';
-import ugo from '../../components/assets/images/ugo.jpg';
-import officeguy2 from '../../components/assets/images/officeguy2.jpg';
 
-const teamMembers = [
-  {
-    name: 'Ugo Okonkwo',
-    role: 'CEO & Founder',
-    image: ugo,
-    description: 'Visionary leader with 15+ years in tech entrepreneurship'
-  },
-  {
-    name: 'Jane Smith',
-    role: 'CTO',
-    image: officelady,
-    description: 'Technology expert specializing in scalable solutions'
-  },
-  {
-    name: 'Mike Johnson',
-    role: 'Head of Design',
-    image: officeguy,
-    description: 'Creative director with an eye for stunning user experiences'
-  },
-  {
-    name: 'Ken Lamarh',
-    role: 'Marketing Director',
-    image: officeguy2,
-    description: 'Digital marketing strategist and brand builder'
-  }
-];
 
 const stats = [
   { value: '4+', label: 'Projects Completed and counting', icon: <FiAward className="w-8 h-8" /> },
@@ -204,51 +174,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-12 sm:py-16 bg-gradient-to-r from-black via-gray-900 to-black px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
-          >
-            <h2 className="text-3xl sm:text-6xl md:text-6xl font-bold mb-6">Meet Our Team</h2>
-            <p className="text-xl text-gray-300">
-              The brilliant minds behind our success
-            </p>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group"
-              >
-                <div className="relative h-80 mb-4 overflow-hidden rounded-xl">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <div>
-                      <h4 className="text-xl font-bold">{member.name}</h4>
-                      <p className="text-gold-400 mb-2">{member.role}</p>
-                      <p className="text-sm text-gray-300">{member.description}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* CTA Section */}
       <section className="py-12 sm:py-16 px-2 sm:px-6 lg:px-8">
