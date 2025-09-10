@@ -20,6 +20,11 @@ const brandSlugs: { [key: number]: string } = {
 export default function BrandsPage() {
   useEffect(() => {
     setPageTitle('Our Brands');
+    // Update meta description for better SEO
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Discover our portfolio of innovative brands at Bubble Barrel Nigeria. Each brand is designed to solve unique business challenges and create exceptional digital experiences.');
+    }
   }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">

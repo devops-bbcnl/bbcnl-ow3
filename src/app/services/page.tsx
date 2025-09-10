@@ -81,6 +81,11 @@ const processSteps = [
 export default function ServicesPage() {
   useEffect(() => {
     setPageTitle('Our Services');
+    // Update meta description for better SEO
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Explore our comprehensive digital services at Bubble Barrel Nigeria - Web development, mobile apps, e-commerce solutions, and digital marketing to grow your business online.');
+    }
   }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">

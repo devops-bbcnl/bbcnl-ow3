@@ -38,6 +38,11 @@ const values = [
 export default function AboutPage() {
   useEffect(() => {
     setPageTitle('About Us');
+    // Update meta description for better SEO
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Learn about Bubble Barrel Nigeria - Our mission, values, and the team behind your trusted digital solutions partner. Discover how we help businesses thrive in the digital age.');
+    }
   }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-x-hidden">

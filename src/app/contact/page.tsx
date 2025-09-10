@@ -16,6 +16,11 @@ import Footer from '../../components/Footer';
 export default function ContactPage() {
   useEffect(() => {
     setPageTitle('Contact Us');
+    // Update meta description for better SEO
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Get in touch with Bubble Barrel Nigeria. Contact our team for inquiries, support, or partnership opportunities. We\'re here to help your business grow.');
+    }
   }, []);
 	const [formData, setFormData] = useState({
 		name: '',

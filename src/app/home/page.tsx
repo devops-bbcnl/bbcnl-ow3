@@ -11,6 +11,11 @@ import Footer from '../../components/Footer';
 export default function HomePage() {
   useEffect(() => {
     setPageTitle('Home');
+    // Update meta description for better SEO
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Bubble Barrel - Leading provider of innovative digital solutions in Nigeria. We help businesses grow with custom web development, e-commerce, and digital marketing services.');
+    }
   }, []);
   const features = [
     {
