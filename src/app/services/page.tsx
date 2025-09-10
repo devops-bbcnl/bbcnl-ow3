@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { setPageTitle } from '@/utils/pageTitle';
 import { motion } from 'framer-motion';
 import { FiCode, FiShoppingCart, FiSmartphone, FiTrendingUp, FiGlobe, FiServer } from 'react-icons/fi';
 import Footer from '../../components/Footer';
@@ -78,6 +79,9 @@ const processSteps = [
 ];
 
 export default function ServicesPage() {
+  useEffect(() => {
+    setPageTitle('Our Services');
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
       {/* Hero Section */}

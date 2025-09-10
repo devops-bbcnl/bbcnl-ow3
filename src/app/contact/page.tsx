@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { setPageTitle } from '@/utils/pageTitle';
 import {
 	FiMail,
 	FiPhone,
@@ -13,6 +14,9 @@ import { motion } from 'framer-motion';
 import Footer from '../../components/Footer';
 
 export default function ContactPage() {
+  useEffect(() => {
+    setPageTitle('Contact Us');
+  }, []);
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',

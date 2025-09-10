@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import React, { useEffect } from 'react';
+import { setPageTitle } from '@/utils/pageTitle';
 import { FiArrowLeft, FiExternalLink } from 'react-icons/fi';
 import { brands } from '@/types/brands';
 import ScreenshotGalleryWrapper from '@/components/ScreenshotGalleryWrapper';
@@ -16,6 +18,10 @@ const brandScreenshots = [
 ];
 
 export default function GoBuyMePage() {
+  useEffect(() => {
+    setPageTitle('GoBuyMe | Bubble Barrel');
+  }, []);
+
   if (!brand) {
     return <div>Brand not found</div>;
   }

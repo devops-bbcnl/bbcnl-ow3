@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { setPageTitle } from '@/utils/pageTitle';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FiAward, FiTarget, FiHeart, FiGlobe } from 'react-icons/fi';
@@ -35,6 +36,9 @@ const values = [
 ];
 
 export default function AboutPage() {
+  useEffect(() => {
+    setPageTitle('About Us');
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-x-hidden">
       {/* Hero Section */}

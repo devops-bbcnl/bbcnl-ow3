@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { setPageTitle } from '@/utils/pageTitle';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FiArrowRight, FiGlobe, FiCode, FiSmartphone, FiTrendingUp } from 'react-icons/fi';
@@ -8,6 +9,9 @@ import LogoCarousel from '../../components/LogoCarousel';
 import Footer from '../../components/Footer';
 
 export default function HomePage() {
+  useEffect(() => {
+    setPageTitle('Home');
+  }, []);
   const features = [
     {
       icon: <FiCode className="w-8 h-8 text-gold-500" />,

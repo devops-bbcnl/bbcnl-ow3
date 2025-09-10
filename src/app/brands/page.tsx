@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useEffect } from 'react';
+import { setPageTitle } from '@/utils/pageTitle';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,6 +18,9 @@ const brandSlugs: { [key: number]: string } = {
 };
 
 export default function BrandsPage() {
+  useEffect(() => {
+    setPageTitle('Our Brands');
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
       {/* Hero Section */}
