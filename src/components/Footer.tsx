@@ -78,7 +78,7 @@ const handleSubscribe = async (e: React.FormEvent) => {
     },
     { 
       icon: <FaPhoneAlt className="text-[#ffd700] w-5 h-5 flex-shrink-0" />, 
-      text: '+234 8037674195' 
+      text: '+234 707 890 1075' 
     },
     { 
       icon: <FaEnvelope className="text-[#ffd700] w-5 h-5 flex-shrink-0" />, 

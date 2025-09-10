@@ -285,10 +285,10 @@ export default function ContactPage() {
 											Call Us
 										</h3>
 										<a
-											href="tel:+2348037674195"
+											href="tel:+2347078901075"
 											className="text-sm sm:text-base text-gray-400 hover:text-gold-400 transition-colors"
 										>
-											+234 803 767 4195
+											+234 707 890 1075
 										</a>
 									</div>
 								</div>
