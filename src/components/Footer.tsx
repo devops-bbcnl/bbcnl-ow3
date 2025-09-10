@@ -67,8 +67,8 @@ const handleSubscribe = async (e: React.FormEvent) => {
   const socialLinks = [
     { name: 'Facebook', icon: <FaFacebook className="w-5 h-5" />, href: 'https://www.facebook.com/BubbleBarrelNG' },
     { name: 'Twitter', icon: <FaTwitter className="w-5 h-5" />, href: 'https://x.com/BubbleBarrelNG' },
-    { name: 'Instagram', icon: <FaInstagram className="w-5 h-5" />, href: 'https://www.instagram.com/bubblebarrelng/' },
-    { name: 'LinkedIn', icon: <FaLinkedin className="w-5 h-5" />, href: 'https://www.linkedin.com/company/bubblebarrel/' },
+    { name: 'Instagram', icon: <FaInstagram className="w-5 h-5" />, href: 'https://www.instagram.com/bbcngl01/' },
+    { name: 'LinkedIn', icon: <FaLinkedin className="w-5 h-5" />, href: 'https://www.linkedin.com/company/108617057/admin/dashboard/' },
   ];
 
   const contactInfo = [
